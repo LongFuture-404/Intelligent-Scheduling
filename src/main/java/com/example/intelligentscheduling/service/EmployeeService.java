@@ -1,0 +1,17 @@
+package com.example.intelligentscheduling.service;
+
+import com.example.intelligentscheduling.entity.Employee;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.sql.Time;
+import java.util.Date;
+import java.util.List;
+
+@Mapper
+public interface EmployeeService {
+
+    Employee SelectUser(String acount);
+
+    List<String> employeeSchedulingSelect(String startWeek,String endWeek,String date,String storesId,Integer dayPrefer,String time,Integer employeeCountNeed,Integer workTime);
+    void addEmployeeScheduling(String employeeId,String storesId,String date,String startTime,Integer workTime);
+}
