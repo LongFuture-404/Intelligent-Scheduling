@@ -151,18 +151,28 @@ public class test {
 //        //获取秒数
 //        int seconds=calendar.get(Calendar.SECOND);
 //        System.out.println(hour+"   "+minutes+"   "+seconds);
+
+//        GregorianCalendar calendar = new GregorianCalendar();
+//        SimpleDateFormat f = new SimpleDateFormat("HH:mm");
+//        String startTime="8:00";
+//        Date time=f.parse(startTime);
+//        String Time=f.format(time);
+//        for (int i=0;i<5;i++) {
+//            System.out.println(Time);
+//            calendar.setTime(time);
+//            calendar.add(Calendar.HOUR_OF_DAY,1);
+//            time=calendar.getTime();
+//            Time=f.format(time);
+//        }
+
+
         GregorianCalendar calendar = new GregorianCalendar();
         SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-        String startTime="8:00";
-        Date time=f.parse(startTime);
-        String Time=f.format(time);
-        for (int i=0;i<5;i++) {
-            System.out.println(Time);
-            calendar.setTime(time);
-            calendar.add(Calendar.HOUR_OF_DAY,1);
-            time=calendar.getTime();
-            Time=f.format(time);
-        }
+        Date nextTime=f.parse("22:00");
+        calendar.setTime(nextTime);
+        calendar.add(Calendar.HOUR_OF_DAY,3);
+        String endTime=f.format(calendar.getTime());
+        System.out.println(endTime);
     }
 
 //    //time to String

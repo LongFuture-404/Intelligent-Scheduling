@@ -8,5 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface StoreService {
-    Integer getEmployeeNeed(String storesId, String date, String startTime);
+    Integer getEmployeeNeed(String storesId, String date, Integer weekDay, String startTime);
 }

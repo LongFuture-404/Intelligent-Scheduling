@@ -2,10 +2,7 @@ package com.example.intelligentscheduling;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class DateMethods {
     public static List<String> getTimeInterval(Date date) {
@@ -70,5 +67,18 @@ public class DateMethods {
             lDate.add(sdf.format(calBegin.getTime()));
         }
         return lDate;
+    }
+    public static String getEndTime(String startTime,String type,Integer workTime) throws ParseException {
+        GregorianCalendar calendar = new GregorianCalendar();
+        SimpleDateFormat f = new SimpleDateFormat("HH:mm");
+        Date nextTime=f.parse(startTime);
+        calendar.setTime(nextTime);
+        if (type.equals("hour")){
+            calendar.add(Calendar.HOUR,workTime);
+        }
+        if (type.equals("minutes")){
+            calendar.add(Calendar.MINUTE,workTime);
+        }
+        return f.format(calendar.getTime());
     }
 }

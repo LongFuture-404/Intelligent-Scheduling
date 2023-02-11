@@ -1,6 +1,7 @@
 package com.example.intelligentscheduling.controller;
 
 import com.example.intelligentscheduling.entity.Employee;
+import com.example.intelligentscheduling.entity.EmployeeScheduling;
 import com.example.intelligentscheduling.entity.Scheduling;
 import com.example.intelligentscheduling.entity.Scheduling_role;
 import com.example.intelligentscheduling.service.EmployeeService;
@@ -48,9 +49,15 @@ public class EmployeeController {
     //返回本周的排班安排数据
     @ResponseBody
     @RequestMapping("/GetScheduling")
-    public ArrayList<Scheduling> GetScheduling(@RequestParam("weekJS[]")String[] SchedulingWeek,
-                                               @RequestParam("storeId")String storeId) throws Exception {
-        return null;
+    public ArrayList<EmployeeScheduling> GetScheduling(@RequestParam("weekJS[]")String[] SchedulingWeek,
+                                                       @RequestParam("storeId")String storeId) throws Exception {
+        ArrayList<EmployeeScheduling> scheduling=new ArrayList<>();
+        for(String date:SchedulingWeek){
+            ArrayList<EmployeeScheduling> dayScheduling=service.getEmployeeScheduling(date);
+            scheduling.addAll(dayScheduling);
+        }
+        System.out.println(scheduling);
+        return scheduling;
     }
     //只进行添加排班操作，不返回任何数据
     @ResponseBody
@@ -64,7 +71,7 @@ public class EmployeeController {
         int workTime;
         for(String date:SchedulingWeek) {
             weekDay++;
-            if(weekDay<5){
+            if(weekDay<=5){
                 startTime = "8:00";
                 endTime="21:30";
             }
@@ -73,36 +80,30 @@ public class EmployeeController {
                 endTime="22:30";
             }
             do{
-                if((weekDay<5&&(startTime.equals("11:00")||startTime.equals("13:00")||startTime.equals("21:00")))
-                    ||((weekDay>=5&&weekDay<7)&&(startTime.equals("12:00")||startTime.equals("14:00")||startTime.equals("22:00")))){
+                if((weekDay<=5&&(startTime.equals("11:00")||startTime.equals("13:00")||startTime.equals("21:00")))
+                    ||((weekDay>5&&weekDay<=7)&&(startTime.equals("12:00")||startTime.equals("14:00")||startTime.equals("22:00")))){
                     workTime = 2;
                 }
                 else {
                     workTime = 3;
                 }
-                employeeCountNeed = storeService.getEmployeeNeed(storeId, date, startTime);
+                employeeCountNeed = storeService.getEmployeeNeed(storeId, date, weekDay, startTime);
+//                System.out.println(startTime + " 需要 " + employeeCountNeed);
                 if(employeeCountNeed>0){
                     List<String> employees=service.employeeSchedulingSelect(SchedulingWeek[0],SchedulingWeek[6],date,storeId,weekDay,startTime,employeeCountNeed,workTime);
-                    for (String employee:employees){
-                        service.addEmployeeScheduling(employee,storeId,date,startTime,workTime);
+                    if(employees.get(0).equals("error")){
+                        System.out.println(date + "  " + startTime + " 无可用员工，请添加 "+employees.get(1)+" 名员工");
+                    }
+                    else {
+                        for (String employee : employees) {
+                            service.addEmployeeScheduling(SchedulingWeek[0], SchedulingWeek[6], employee, storeId, date, startTime, workTime);
+                        }
                     }
                 }
-                else{
-                    continue;
-                }
-                GregorianCalendar calendar = new GregorianCalendar();
-                SimpleDateFormat f = new SimpleDateFormat("HH:mm");
-                Date nextTime=f.parse(startTime);
-                calendar.setTime(nextTime);
-                calendar.add(Calendar.MINUTE,30);
-                startTime=f.format(calendar.getTime());
+                startTime=getEndTime(startTime,"minutes",30);
             }while (!startTime.equals(endTime));
         }
-        //2. 根据排班安排对数组进行操作 时间段=0则不进行操作 不等于0则根据偏好工作时间安排员工并且在其工作时间段对应数组-1
-        //isFirst指店员是否在本日安排了班次
-//        service.employeeSchedulingSelect("1","1", time, 2);
-        //3. 所有时间段数组=0后停止操作
-
+        System.out.println("执行完毕");
     }
     @ResponseBody
     @RequestMapping("/UpdateScheduling")

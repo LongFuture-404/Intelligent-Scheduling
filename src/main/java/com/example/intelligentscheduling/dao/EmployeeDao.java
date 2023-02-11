@@ -1,10 +1,12 @@
 package com.example.intelligentscheduling.dao;
 
 import com.example.intelligentscheduling.entity.Employee;
+import com.example.intelligentscheduling.entity.EmployeeScheduling;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,15 +37,16 @@ public interface EmployeeDao {
     /** [选择员工]排班表和偏好表查询
      * 查询员工dayRemainder【日剩余时间】和weekRemainder【周剩余时间】
      */
-    List<String> employeeSchedulingSelect2(String storesId,Integer dayPrefer,String time,Integer count);
+    List<String> employeeSchedulingSelect2(String storesId,Integer dayPrefer,String time);
     Integer employeeIsRest(String employeeId,String date,String startTime);
     /**
      * 获取周剩余时间
      */
     Integer employeeWeekSelect(String startWeek,String endWeek,String employeeId);
-    Employee employeeSelect(String employeeId);
-    void addScheduling(String employeeId,String storesId,String date,String startTime,Integer workTime);
-    void addEmployeeCount(String storesId,String date,String startTime,Integer workTime);
+    Employee employeeSelect(String employeeId,String date);
+    void addScheduling(String employeeId,String storesId,String date,String startTime,String endTime,Integer dayRemainder,Integer weekRemainder);
+    void addEmployeeCount(String storesId,String date,String startTime,String endTime);
+    ArrayList<EmployeeScheduling> SchulingSelect(String date);
     /**
      * 在修改换班时使用
      */

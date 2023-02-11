@@ -35,15 +35,18 @@
         select min(weekRemainder) from scheduling where employeeId=#{employeeId} and date &gt;= #{startWeek} and date &lt;= #{endWeek}
     </select>
     <select id="employeeSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.Employee">
-        select * from employee left join scheduling on employee.employeeId=scheduling.employeeId where employee.employeeId=#{employeeId}
+        select * from employee left join scheduling on employee.employeeId=scheduling.employeeId where employee.employeeId=#{employeeId} and date=#{date}
                      order by dayRemainder limit 1
     </select>
     <insert id="addScheduling" parameterType="Map">
-        
+        insert into scheduling(employeeId,storesId,date,startTime,endTime,dayRemainder,weekRemainder) value (#{employeeId},#{storesId},#{date},#{startTime},#{endTime},#{dayRemainder},#{weekRemainder})
     </insert>
     <insert id="addEmployeeCount" parameterType="Map">
-
+        update storestraffic set employeeCount=employeeCount+1 where storesId=#{storesId} and date=#{date} and startTime &gt;= #{startTime} and startTime &lt;#{endTime}
     </insert>
+    <select id="SchulingSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.EmployeeScheduling">
+        select * from scheduling left join employee on scheduling.employeeId = employee.employeeId where date=#{date}
+    </select>
     <select id="employeeSchedulingUpdateSelect" parameterType="Map" resultType="com.example.intelligentscheduling.entity.Employee">
 
     </select>

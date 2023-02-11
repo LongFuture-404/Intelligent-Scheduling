@@ -12,12 +12,13 @@ public class Employee {
     private String startTime1;
     private String startTime2;
     private String dayPrefer;
+    private String endTime;
     private Integer dayRemainder;
     private Integer weekRemainder;
     public Employee() {
     }
 
-    public Employee(String employeeId, String employeeName, String employeePosts, String storesId, String employeeEmail, String userId, String passWord, String date, String startTime1, String startTime2, String dayPrefer, Integer dayRemainder, Integer weekRemainder) {
+    public Employee(String employeeId, String employeeName, String employeePosts, String storesId, String employeeEmail, String userId, String passWord, String date, String startTime1, String startTime2, String dayPrefer, String endTime, Integer dayRemainder, Integer weekRemainder) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeePosts = employeePosts;
@@ -29,8 +30,17 @@ public class Employee {
         this.startTime1 = startTime1;
         this.startTime2 = startTime2;
         this.dayPrefer = dayPrefer;
+        this.endTime = endTime;
         this.dayRemainder = dayRemainder;
         this.weekRemainder = weekRemainder;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getDate() {
@@ -151,8 +161,9 @@ public class Employee {
                 ", startTime1='" + startTime1 + '\'' +
                 ", startTime2='" + startTime2 + '\'' +
                 ", dayPrefer='" + dayPrefer + '\'' +
-                ", dayRemainder='" + dayRemainder + '\'' +
-                ", weekRemainder='" + weekRemainder + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", dayRemainder=" + dayRemainder +
+                ", weekRemainder=" + weekRemainder +
                 '}';
     }
 }
