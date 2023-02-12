@@ -46,7 +46,7 @@ public interface EmployeeDao {
     Employee employeeSelect(String employeeId,String date);
     void addScheduling(String employeeId,String storesId,String date,String startTime,String endTime,Integer dayRemainder,Integer weekRemainder);
     void addEmployeeCount(String storesId,String date,String startTime,String endTime);
-    ArrayList<EmployeeScheduling> SchulingSelect(String date);
+    ArrayList<EmployeeScheduling> SchulingSelect(String date,String storesId);
     /**
      * 在修改换班时使用
      */

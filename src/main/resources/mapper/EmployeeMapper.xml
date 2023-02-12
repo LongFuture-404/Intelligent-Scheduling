@@ -45,7 +45,7 @@
         update storestraffic set employeeCount=employeeCount+1 where storesId=#{storesId} and date=#{date} and startTime &gt;= #{startTime} and startTime &lt;#{endTime}
     </insert>
     <select id="SchulingSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.EmployeeScheduling">
-        select * from scheduling left join employee on scheduling.employeeId = employee.employeeId where date=#{date}
+        select * from scheduling left join employee on scheduling.employeeId = employee.employeeId where date=#{date} and scheduling.storesId=#{storesId}
     </select>
     <select id="employeeSchedulingUpdateSelect" parameterType="Map" resultType="com.example.intelligentscheduling.entity.Employee">
 

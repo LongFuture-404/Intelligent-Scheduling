@@ -53,10 +53,9 @@ public class EmployeeController {
                                                        @RequestParam("storeId")String storeId) throws Exception {
         ArrayList<EmployeeScheduling> scheduling=new ArrayList<>();
         for(String date:SchedulingWeek){
-            ArrayList<EmployeeScheduling> dayScheduling=service.getEmployeeScheduling(date);
+            ArrayList<EmployeeScheduling> dayScheduling=service.getEmployeeScheduling(date,storeId);
             scheduling.addAll(dayScheduling);
         }
-        System.out.println(scheduling);
         return scheduling;
     }
     //只进行添加排班操作，不返回任何数据

@@ -17,5 +17,5 @@ public interface EmployeeService {
 
     List<String> employeeSchedulingSelect(String startWeek,String endWeek,String date,String storesId,Integer dayPrefer,String time,Integer employeeCountNeed,Integer workTime);
     void addEmployeeScheduling(String startWeek,String endWeek,String employeeId,String storesId,String date,String startTime,Integer workTime) throws ParseException;
-    ArrayList<EmployeeScheduling> getEmployeeScheduling(String date);
+    ArrayList<EmployeeScheduling> getEmployeeScheduling(String date,String storesId);
 }
