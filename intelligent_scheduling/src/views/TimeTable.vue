@@ -8,7 +8,7 @@
 
       <ul class="theTime">
         <li class="weekTime">
-          <div>星期数/时间</div></li>
+          <div class="weekDay">星期数/时间</div></li>
         <li v-for="count in 7">
           <div class="weekDay">{{weekJS[count-1]}}<br>{{week[count-1]}}</div>
         </li>
@@ -18,12 +18,18 @@
         <li class="weekTime">
           <div>8:00~11:00<br>(周末)9:00~12:00</div></li>
         <li v-for="count in 5">
-          <div>
+          <div class="employeeBox">
             <ul class="employee">
-              <li v-for="item in Scheduling[count].dateScheduling" v-if="Scheduling[count]!=null">
+              <li v-for="item in Scheduling[count-1].dateScheduling" v-if="Scheduling[count-1]!=null">
                 <p v-if="item.startTime<'11:00'">
                   {{item.employeeName}}
+                  <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
                 </p>
+                <span v-show="item.isShowDetailet&&item.startTime<'11:00'">
+                  {{item.employeePosts}}
+                  {{item.startTime}}
+                  {{item.endTime}}
+                </span>
               </li>
             </ul>
           </div>
@@ -34,7 +40,13 @@
               <li v-for="item in Scheduling[4+count].dateScheduling" v-if="Scheduling[4+count]!=null">
                 <p v-if="item.startTime<'12:00'">
                   {{item.employeeName}}
+                  <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
                 </p>
+                <span v-show="item.isShowDetailet&&item.startTime<'12:00'">
+                  {{item.employeePosts}}
+                  {{item.startTime}}
+                  {{item.endTime}}
+                </span>
               </li>
             </ul>
           </div>
@@ -47,10 +59,16 @@
             <li v-for="count in 5">
               <div>
                 <ul class="employee">
-                  <li v-for="item in Scheduling[count].dateScheduling" v-if="Scheduling[count]!=null">
+                  <li v-for="item in Scheduling[count-1].dateScheduling" v-if="Scheduling[count-1]!=null">
                     <p v-if="item.startTime<'13:00'&&item.startTime>='11:00'">
                       {{item.employeeName}}
+                      <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
                     </p>
+                    <span v-show="item.isShowDetailet&&item.startTime<'13:00'&&item.startTime>='11:00'">
+                      {{item.employeePosts}}
+                      {{item.startTime}}
+                      {{item.endTime}}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -61,7 +79,13 @@
                   <li v-for="item in Scheduling[4+count].dateScheduling" v-if="Scheduling[4+count]!=null">
                     <p v-if="item.startTime<'14:00'&&item.startTime>='12:00'">
                       {{item.employeeName}}
+                      <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
                     </p>
+                    <span v-show="item.isShowDetailet&&item.startTime<'14:00'&&item.startTime>='12:00'">
+                      {{item.employeePosts}}
+                      {{item.startTime}}
+                      {{item.endTime}}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -74,10 +98,16 @@
     <li v-for="count in 5">
       <div>
         <ul class="employee">
-          <li v-for="item in Scheduling[count].dateScheduling" v-if="Scheduling[count]!=null">
+          <li v-for="item in Scheduling[count-1].dateScheduling" v-if="Scheduling[count-1]!=null">
             <p v-if="item.startTime<'15:00'&&item.startTime>='13:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <span v-show="item.isShowDetailet&&item.startTime<'15:00'&&item.startTime>='13:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </span>
           </li>
         </ul>
       </div>
@@ -88,7 +118,13 @@
           <li v-for="item in Scheduling[4+count].dateScheduling" v-if="Scheduling[4+count]!=null">
             <p v-if="item.startTime<'16:00'&&item.startTime>='14:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <span v-show="item.isShowDetailet&&item.startTime<'16:00'&&item.startTime>='14:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </span>
           </li>
         </ul>
       </div>
@@ -101,10 +137,16 @@
     <li v-for="count in 5">
       <div>
         <ul class="employee">
-          <li v-for="item in Scheduling[count].dateScheduling" v-if="Scheduling[count]!=null">
+          <li v-for="item in Scheduling[count-1].dateScheduling" v-if="Scheduling[count-1]!=null">
             <p v-if="item.startTime<'18:00'&&item.startTime>='15:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <span v-show="item.isShowDetailet&&item.startTime<'18:00'&&item.startTime>='15:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </span>
           </li>
         </ul>
       </div>
@@ -115,7 +157,13 @@
           <li v-for="item in Scheduling[4+count].dateScheduling" v-if="Scheduling[4+count]!=null">
             <p v-if="item.startTime<'19:00'&&item.startTime>='16:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <sapn v-show="item.isShowDetailet&&item.startTime<'19:00'&&item.startTime>='16:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </sapn>
           </li>
         </ul>
       </div>
@@ -128,10 +176,16 @@
     <li v-for="count in 5">
       <div>
         <ul class="employee">
-          <li v-for="item in Scheduling[count].dateScheduling" v-if="Scheduling[count]!=null">
+          <li v-for="item in Scheduling[count-1].dateScheduling" v-if="Scheduling[count-1]!=null">
             <p v-if="item.startTime<'21:00'&&item.startTime>='18:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <span v-show="item.isShowDetailet&&item.startTime<'21:00'&&item.startTime>='18:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </span>
           </li>
         </ul>
       </div>
@@ -142,7 +196,13 @@
           <li v-for="item in Scheduling[4+count].dateScheduling" v-if="Scheduling[4+count]!=null">
             <p v-if="item.startTime<'22:00'&&item.startTime>='19:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <span v-show="item.isShowDetailet&&item.startTime<'22:00'&&item.startTime>='19:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </span>
           </li>
         </ul>
       </div>
@@ -155,10 +215,16 @@
     <li v-for="count in 5">
       <div>
         <ul class="employee">
-          <li v-for="item in Scheduling[count].dateScheduling" v-if="Scheduling[count]!=null">
+          <li v-for="item in Scheduling[count-1].dateScheduling" v-if="Scheduling[count-1]!=null">
             <p v-if="item.startTime<'23:00'&&item.startTime>='21:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <span v-show="item.isShowDetailet&&item.startTime<'23:00'&&item.startTime>='21:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </span>
           </li>
         </ul>
       </div>
@@ -169,7 +235,13 @@
           <li v-for="item in Scheduling[4+count].dateScheduling" v-if="Scheduling[4+count]!=null">
             <p v-if="item.startTime<'24:00'&&item.startTime>='22:00'">
               {{item.employeeName}}
+              <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
+            <span v-show="item.isShowDetailet&&item.startTime<'24:00'&&item.startTime>='22:00'">
+              {{item.employeePosts}}
+              {{item.startTime}}
+              {{item.endTime}}
+            </span>
           </li>
         </ul>
       </div>
@@ -240,6 +312,10 @@ const lastWeek=()=>{
   date.setDate(date.getDate() - 7);
   now=new Date(date)
   getDateJS()
+  Object.keys(Scheduling).forEach((item) => {
+    Scheduling.pop()
+  })
+  GetScheduling()
   // proxy.$axios.post('EmployeeController/GetDate',proxy.$qs.stringify({
   //   week:week-7
   // })).then(response=> {
@@ -260,6 +336,10 @@ const thisWeek=()=>{
   let date=new Date()
   now=new Date(date)
   getDateJS()
+  Object.keys(Scheduling).forEach((item) => {
+    Scheduling.pop()
+  })
+  GetScheduling()
   // proxy.$axios.post('EmployeeController/GetDate',proxy.$qs.stringify({
   //   week:0
   // })).then(response=> {
@@ -281,6 +361,10 @@ const nextWeek=()=>{
   date.setDate(date.getDate() + 7);
   now=new Date(date)
   getDateJS()
+  Object.keys(Scheduling).forEach((item) => {
+    Scheduling.pop()
+  })
+  GetScheduling()
   // proxy.$axios.post('EmployeeController/GetDate',proxy.$qs.stringify({
   //   week:week+7
   // })).then(response=> {
@@ -319,13 +403,15 @@ const props = defineProps({
 // arrayFormat:'brackets'后端无法接收整个数组 只能单个接收如 a[0],a[1],a[2]等
 // arrayFormat:'brackets'后端则接收数组名后加上[]
 // arrayFormat:'repeat'后端则直接输入接收数组名
-
 let storeId=ref(props.storeId)
 const GetScheduling=()=>{
   proxy.$axios.post('EmployeeController/GetScheduling',proxy.$qs.stringify({
     storeId:storeId.value,
     weekJS:weekJS
   },{arrayFormat:'brackets'})).then(response=> {
+    Object.keys(Scheduling).forEach((item) => {
+      Scheduling.pop()
+    })
     let result = response.data;
     let dataInfo = {};
     result.forEach((item, index) => {
@@ -337,22 +423,14 @@ const GetScheduling=()=>{
           dateScheduling: []
         }
       }
+      item.isShowDetailet=false;
       dataInfo[weekDay].dateScheduling.push(item);
     });
-    for (let weekCount=0;weekCount<5;weekCount++) {
-      dataInfo[weekJS[weekCount]].dateScheduling.forEach((item,index)=>{
-        let {startTime}=item;
-        if(dataInfo[weekJS[weekCount]].dateScheduling[startTime]){
-
-        }
-      })
-    }
     let list = Object.values(dataInfo);
     for(let scheduling of list){
-      scheduling.isShowDetailet = false;
+      Scheduling.push(scheduling);
     }
-    Scheduling = list;
-    return Scheduling
+    console.log(Scheduling)
   })
 }
 GetScheduling()
@@ -362,6 +440,10 @@ const AutoScheduling=()=>{
     storeId:storeId.value,
     weekJS:weekJS
   },{arrayFormat:'brackets'})).then(response=> {
+    alert(" 智能排班完成 ")
+    Object.keys(Scheduling).forEach((item) => {
+      Scheduling.pop()
+    })
     GetScheduling()
   })
 }
@@ -370,8 +452,15 @@ const UpdateScheduling=()=>{
     employeeCol:employee.employeeCol,
     weekJS:weekJS[6]
   })).then(response=> {
+    Object.keys(Scheduling).forEach((item) => {
+      Scheduling.pop()
+    })
     GetScheduling()
   })
+}
+const detailetShow=(employeeScheduling)=>{
+  console.log(employeeScheduling)
+  employeeScheduling.isShowDetailet = !employeeScheduling.isShowDetailet;
 }
 </script>
 
@@ -381,7 +470,7 @@ const UpdateScheduling=()=>{
   width: 400px;
   height: 50px;
   position: relative;
-  top: -20px;
+  top: -38px;
   left: 40%;
   display: flex;
   flex-direction: row;
@@ -390,7 +479,7 @@ const UpdateScheduling=()=>{
 .selectWeek{
   position: relative;
   left: 40%;
-  top:20px;
+  top:10px;
   display: flex;
   flex-direction: row;
   gap: 50px;
@@ -401,21 +490,30 @@ const UpdateScheduling=()=>{
   position: relative;
   top: 61px;
 }
+div.weekDay{
+  height: 64px;
+}
 ul.employee{
+  width: 100%;
+  height: 100%;
   padding: 0;
   float: left;
 }
 p{
-  font-size: 14px;
-  width: 50px;
-  height: 14px;
+  margin: 0;
+  font-size: 13px;
+  width: 52px;
+  height: 20px;
+  line-height: 25px;
+}
+span{
+  font-size: 8px;
 }
 ul.theTime{
   width: 100%;
   display:block;
   position: relative;
-  top: 30px;
-  height: 60px;
+  top: 15px;
 }
 li{
   display:inline-block;
@@ -423,9 +521,18 @@ li{
   list-style:none;
 }
 ul div{
-  width: 180px;
-  height: 76px;
-  line-height: 38px;
+  width: 185px;
+  height: 100px;
+  line-height: 32px;
   border: 2px cornflowerblue solid;
+}
+ul div.employeeBox{
+  box-sizing: border-box;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

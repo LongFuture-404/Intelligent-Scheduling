@@ -9,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import axios,{AxiosInstance} from  'axios'
 // @ts-ignore
 import qs from 'qs'
+import 'font-awesome/css/font-awesome.min.css'
 
 // //ts全局配置Axios
 // declare module '@vue/runtime-core' {

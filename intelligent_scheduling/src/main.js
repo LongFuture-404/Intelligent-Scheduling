@@ -11,6 +11,7 @@ require("bootstrap/dist/js/bootstrap.min.js");
 var axios_1 = require("axios");
 // @ts-ignore
 var qs_1 = require("qs");
+require("font-awesome/css/font-awesome.min.css");
 // //ts全局配置Axios
 // declare module '@vue/runtime-core' {
 //     interface ComponentCustomProperties {
