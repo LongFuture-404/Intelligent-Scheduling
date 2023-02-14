@@ -6,12 +6,6 @@
 
     <select id="Select" parameterType="String" resultType="com.example.intelligentscheduling.entity.Employee">
         select * from employee where userId=#{UserId}</select>
-    <update id="employeeCountIncrease" parameterType="Map">
-
-    </update>
-    <select id="employeeCountRead" parameterType="Map" resultType="Integer">
-
-    </select>
     <insert id="employeeSchedulingInsert" parameterType="Map">
         insert into scheduling (employeeId, storesId, date, startTime, endTime, dayRemainder, weekRemainder) VALUE
             (#{employeeId},#{storesId},#{date},#{startTime},#{endTime},#{dayRemainder},#{weekRemainder})

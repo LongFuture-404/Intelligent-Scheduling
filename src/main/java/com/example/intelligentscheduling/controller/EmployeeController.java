@@ -106,9 +106,9 @@ public class EmployeeController {
     }
     @ResponseBody
     @RequestMapping("/UpdateScheduling")
-    public void UpdateScheduling(@RequestParam("employeeCol[]")Integer employeeCol,
-                                 @RequestParam("weekJS")String weekLastDay) throws Exception {
-
+    public void UpdateScheduling(@RequestParam("schedulingCol")String schedulingCol,
+                                 @RequestParam("weekJS[]")String[] SchedulingWeek) throws Exception {
+        System.out.println(schedulingCol);
     }
 //    @ResponseBody
 //    @RequestMapping("/GetDate")

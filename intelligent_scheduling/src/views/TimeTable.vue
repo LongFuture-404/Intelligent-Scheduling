@@ -29,6 +29,7 @@
                   {{item.employeePosts}}
                   {{item.startTime}}
                   {{item.endTime}}
+                  <i class="update" @click="UpdateScheduling(item)">改</i>
                 </span>
               </li>
             </ul>
@@ -46,6 +47,7 @@
                   {{item.employeePosts}}
                   {{item.startTime}}
                   {{item.endTime}}
+                  <i class="update" @click="UpdateScheduling(item)">改</i>
                 </span>
               </li>
             </ul>
@@ -68,6 +70,7 @@
                       {{item.employeePosts}}
                       {{item.startTime}}
                       {{item.endTime}}
+                      <i class="update" @click="UpdateScheduling(item)">改</i>
                     </span>
                   </li>
                 </ul>
@@ -85,6 +88,7 @@
                       {{item.employeePosts}}
                       {{item.startTime}}
                       {{item.endTime}}
+                      <i class="update" @click="UpdateScheduling(item)">改</i>
                     </span>
                   </li>
                 </ul>
@@ -107,6 +111,7 @@
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
+              <i class="update" @click="UpdateScheduling(item)">改</i>
             </span>
           </li>
         </ul>
@@ -124,6 +129,7 @@
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
+              <i class="update" @click="UpdateScheduling(item)">改</i>
             </span>
           </li>
         </ul>
@@ -146,6 +152,7 @@
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
+              <i class="update" @click="UpdateScheduling(item)">改</i>
             </span>
           </li>
         </ul>
@@ -159,11 +166,12 @@
               {{item.employeeName}}
               <i class="fa fa-caret-down" @click="detailetShow(item)"></i>
             </p>
-            <sapn v-show="item.isShowDetailet&&item.startTime<'19:00'&&item.startTime>='16:00'">
+            <span v-show="item.isShowDetailet&&item.startTime<'19:00'&&item.startTime>='16:00'">
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
-            </sapn>
+              <i class="update" @click="UpdateScheduling(item)">改</i>
+            </span>
           </li>
         </ul>
       </div>
@@ -185,6 +193,7 @@
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
+              <i class="update" @click="UpdateScheduling(item)">改</i>
             </span>
           </li>
         </ul>
@@ -202,6 +211,7 @@
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
+              <i class="update" @click="UpdateScheduling(item)">改</i>
             </span>
           </li>
         </ul>
@@ -224,6 +234,7 @@
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
+              <i class="update" @click="UpdateScheduling(item)">改</i>
             </span>
           </li>
         </ul>
@@ -241,6 +252,7 @@
               {{item.employeePosts}}
               {{item.startTime}}
               {{item.endTime}}
+              <i class="update" @click="UpdateScheduling(item)">改</i>
             </span>
           </li>
         </ul>
@@ -312,9 +324,6 @@ const lastWeek=()=>{
   date.setDate(date.getDate() - 7);
   now=new Date(date)
   getDateJS()
-  Object.keys(Scheduling).forEach((item) => {
-    Scheduling.pop()
-  })
   GetScheduling()
   // proxy.$axios.post('EmployeeController/GetDate',proxy.$qs.stringify({
   //   week:week-7
@@ -336,9 +345,6 @@ const thisWeek=()=>{
   let date=new Date()
   now=new Date(date)
   getDateJS()
-  Object.keys(Scheduling).forEach((item) => {
-    Scheduling.pop()
-  })
   GetScheduling()
   // proxy.$axios.post('EmployeeController/GetDate',proxy.$qs.stringify({
   //   week:0
@@ -361,9 +367,6 @@ const nextWeek=()=>{
   date.setDate(date.getDate() + 7);
   now=new Date(date)
   getDateJS()
-  Object.keys(Scheduling).forEach((item) => {
-    Scheduling.pop()
-  })
   GetScheduling()
   // proxy.$axios.post('EmployeeController/GetDate',proxy.$qs.stringify({
   //   week:week+7
@@ -378,7 +381,9 @@ const nextWeek=()=>{
   //   return date
   // })
 }
-
+const data=reactive({
+  schedulingCol:''
+})
 const props = defineProps({
       storeId:{
         type:String,
@@ -387,7 +392,8 @@ const props = defineProps({
       week:{
         type:Array,
         default:["星期一","星期二","星期三","星期四","星期五","星期六","星期日"]
-      }
+      },
+
     },
 //       date: {
 //         type:Array,
@@ -441,20 +447,15 @@ const AutoScheduling=()=>{
     weekJS:weekJS
   },{arrayFormat:'brackets'})).then(response=> {
     alert(" 智能排班完成 ")
-    Object.keys(Scheduling).forEach((item) => {
-      Scheduling.pop()
-    })
     GetScheduling()
   })
 }
-const UpdateScheduling=()=>{
+const UpdateScheduling=(employeeScheduling)=>{
+  data.schedulingCol=employeeScheduling.schedulingCol
   proxy.$axios.post('EmployeeController/UpdateScheduling',proxy.$qs.stringify({
-    employeeCol:employee.employeeCol,
-    weekJS:weekJS[6]
-  })).then(response=> {
-    Object.keys(Scheduling).forEach((item) => {
-      Scheduling.pop()
-    })
+    schedulingCol:data.schedulingCol,
+    weekJS:weekJS
+  },{arrayFormat:'brackets'})).then(response=> {
     GetScheduling()
   })
 }
@@ -466,6 +467,11 @@ const detailetShow=(employeeScheduling)=>{
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+button.update{
+  width: 10px;
+  height: 10px;
+  background-color: cadetblue;
+}
 .MainButton{
   width: 400px;
   height: 50px;

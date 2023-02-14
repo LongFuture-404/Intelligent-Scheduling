@@ -9,6 +9,7 @@ public class EmployeeScheduling {
     private String employeePosts;
     private String storesId;
     private String employeeEmail;
+    private String schedulingCol;
     private String date;
     private String startTime;
     private String endTime;
@@ -16,15 +17,24 @@ public class EmployeeScheduling {
     public EmployeeScheduling() {
     }
 
-    public EmployeeScheduling(String employeeId, String employeeName, String employeePosts, String storesId, String employeeEmail, String date, String startTime, String endTime) {
+    public EmployeeScheduling(String employeeId, String employeeName, String employeePosts, String storesId, String employeeEmail, String schedulingCol, String date, String startTime, String endTime) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeePosts = employeePosts;
         this.storesId = storesId;
         this.employeeEmail = employeeEmail;
+        this.schedulingCol = schedulingCol;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public String getSchedulingCol() {
+        return schedulingCol;
+    }
+
+    public void setSchedulingCol(String schedulingCol) {
+        this.schedulingCol = schedulingCol;
     }
 
     public String getEmployeeId() {
@@ -99,9 +109,10 @@ public class EmployeeScheduling {
                 ", employeePosts='" + employeePosts + '\'' +
                 ", storesId='" + storesId + '\'' +
                 ", employeeEmail='" + employeeEmail + '\'' +
-                ", date=" + date +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
+                ", schedulingCol='" + schedulingCol + '\'' +
+                ", date='" + date + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 '}';
     }
 }

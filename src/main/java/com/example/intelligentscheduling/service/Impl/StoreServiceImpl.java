@@ -6,6 +6,7 @@ import com.example.intelligentscheduling.entity.Scheduling_role;
 import com.example.intelligentscheduling.service.StoreService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class StoreServiceImpl implements StoreService {
     @Resource(name = "storeDao")
     StoreDao storeDao;
-    @Override
+    @Transactional
     public Integer getEmployeeNeed(String storesId, String date, Integer weekDay, String startTime) {
         Scheduling_role scheduling_role=storeDao.storesRoleSelect(storesId,date,startTime);
         Integer storesSize = scheduling_role.getStoresSize();

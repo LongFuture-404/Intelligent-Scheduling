@@ -100,6 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //添加客流量预测中安排员工数
         employeeDao.addEmployeeCount(storesId,date,startTime,endTime);
     }
+    @Transactional
     public ArrayList<EmployeeScheduling> getEmployeeScheduling(String date,String storesId){
         return employeeDao.SchulingSelect(date,storesId);
     }

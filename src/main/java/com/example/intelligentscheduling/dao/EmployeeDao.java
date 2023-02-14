@@ -14,22 +14,6 @@ import java.util.List;
 @Resource(name = "EmployeeDao")
 public interface EmployeeDao {
     Employee Select(String acount);
-
-    /**
-     * 增加日期时间段下的已有员工安排数
-     */
-    void employeeCountIncrease(String date,String startTime, String endTime,String storesId);
-
-    /**
-     * 读取日期时间段下的已有员工安排数
-     */
-    Integer employeeCountRead(String date,String startTime,String endTime,String storesId);
-
-    /**
-     * 在添加前需要判断dayRemainder【日剩余时间】和weekRemainder【周剩余时间】
-     */
-    void employeeSchedulingInsert(String employeeId,String date,String startTime,String endTime,String storesId);
-
     /** [优先选择符合偏好的员工]排班表和偏好表查询
      * 查询员工dayRemainder【日剩余时间】和weekRemainder【周剩余时间】以及偏好dayPrefer【日期偏好】和TimePrefer【时间偏好】
      */
@@ -38,7 +22,6 @@ public interface EmployeeDao {
      * 查询员工dayRemainder【日剩余时间】和weekRemainder【周剩余时间】
      */
     List<String> employeeSchedulingSelect2(String storesId,Integer dayPrefer,String time);
-    Integer employeeIsRest(String employeeId,String date,String startTime);
     /**
      * 获取周剩余时间
      */
