@@ -9,20 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import static com.example.intelligentscheduling.DateMethods.getEndTime;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 
 @Service("EmployeeService")
 public class EmployeeServiceImpl implements EmployeeService {
     @Resource(name = "employeeDao")
     EmployeeDao employeeDao;
     @Transactional
-    public Employee SelectUser(String acount){
+    public Employee SelectUser(String account){
         try{
-            return employeeDao.Select(acount);
+            return employeeDao.Select(account);
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -102,6 +100,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     @Transactional
     public ArrayList<EmployeeScheduling> getEmployeeScheduling(String date,String storesId){
-        return employeeDao.SchulingSelect(date,storesId);
+        return employeeDao.SchedulingSelect(date,storesId);
     }
 }

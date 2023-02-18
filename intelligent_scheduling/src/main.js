@@ -7,6 +7,8 @@ var router_1 = require("./router");
 var jquery_1 = require("jquery");
 require("bootstrap/dist/css/bootstrap.css");
 require("bootstrap/dist/js/bootstrap.min.js");
+// @ts-ignore
+var element_plus_1 = require("element-plus");
 //配置请求数据
 var axios_1 = require("axios");
 // @ts-ignore
@@ -29,5 +31,6 @@ app.config.globalProperties.$qs = qs_1.default;
 //         document.title = el.dataset.title
 //     }
 // })
+app.use(element_plus_1.default);
 app.use(store_1.default);
 app.use(router_1.default).mount('#app');

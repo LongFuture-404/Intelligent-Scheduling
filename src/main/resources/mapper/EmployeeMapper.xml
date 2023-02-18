@@ -6,10 +6,6 @@
 
     <select id="Select" parameterType="String" resultType="com.example.intelligentscheduling.entity.Employee">
         select * from employee where userId=#{UserId}</select>
-    <insert id="employeeSchedulingInsert" parameterType="Map">
-        insert into scheduling (employeeId, storesId, date, startTime, endTime, dayRemainder, weekRemainder) VALUE
-            (#{employeeId},#{storesId},#{date},#{startTime},#{endTime},#{dayRemainder},#{weekRemainder})
-    </insert>
     <select id="employeeSchedulingSelect" parameterType="Map" resultType="String">
         select employee.employeeId from employeepreference left join employee on employeepreference.employeeId=employee.employeeId
                      where storesId=#{storesId}
@@ -38,7 +34,7 @@
     <insert id="addEmployeeCount" parameterType="Map">
         update storestraffic set employeeCount=employeeCount+1 where storesId=#{storesId} and date=#{date} and startTime &gt;= #{startTime} and startTime &lt;#{endTime}
     </insert>
-    <select id="SchulingSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.EmployeeScheduling">
+    <select id="SchedulingSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.EmployeeScheduling">
         select * from scheduling left join employee on scheduling.employeeId = employee.employeeId where date=#{date} and scheduling.storesId=#{storesId}
     </select>
     <select id="employeeSchedulingUpdateSelect" parameterType="Map" resultType="com.example.intelligentscheduling.entity.Employee">

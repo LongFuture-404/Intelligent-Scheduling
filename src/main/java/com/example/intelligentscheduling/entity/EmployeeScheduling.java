@@ -1,8 +1,5 @@
 package com.example.intelligentscheduling.entity;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class EmployeeScheduling {
     private String employeeId;
     private String employeeName;

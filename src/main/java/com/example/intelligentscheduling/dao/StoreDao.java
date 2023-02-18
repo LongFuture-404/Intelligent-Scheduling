@@ -5,8 +5,6 @@ import com.example.intelligentscheduling.entity.Store;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
 @Mapper
 @Resource(name = "StoreDao")
 public interface StoreDao {

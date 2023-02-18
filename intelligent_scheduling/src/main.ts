@@ -5,6 +5,8 @@ import router from './router';
 import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+// @ts-ignore
+import ElementPlus from 'element-plus'
 //配置请求数据
 import axios,{AxiosInstance} from  'axios'
 // @ts-ignore
@@ -29,5 +31,6 @@ app.config.globalProperties.$qs = qs
 //         document.title = el.dataset.title
 //     }
 // })
+app.use(ElementPlus)
 app.use(store)
 app.use(router).mount('#app')

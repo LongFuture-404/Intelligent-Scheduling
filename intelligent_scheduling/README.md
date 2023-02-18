@@ -1,24 +1,6 @@
 # intelligent_scheduling
 
-## Project setup
-```
-npm install
-```
+## v0.0.6版本 第六次git更新内容
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![UpdateScheduling01.png](./src/image_md/UpdateScheduling01.png)
+![UpdateScheduling02.png](./src/image_md/UpdateScheduling02.png)

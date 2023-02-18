@@ -2,15 +2,12 @@ package com.example.intelligentscheduling.controller;
 
 import com.example.intelligentscheduling.entity.Employee;
 import com.example.intelligentscheduling.entity.EmployeeScheduling;
-import com.example.intelligentscheduling.entity.Scheduling;
-import com.example.intelligentscheduling.entity.Scheduling_role;
 import com.example.intelligentscheduling.service.EmployeeService;
 import com.example.intelligentscheduling.service.StoreService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.example.intelligentscheduling.DateMethods.*;
@@ -32,9 +29,9 @@ public class EmployeeController {
     StoreService storeService;
     @ResponseBody
     @RequestMapping("/getUserByIdByPass")
-    public Employee login(@RequestParam(value = "UserId") String acount,
+    public Employee login(@RequestParam(value = "UserId") String account,
                           @RequestParam(value = "PassWord") String pwd){
-        Employee employee=service.SelectUser(acount);
+        Employee employee=service.SelectUser(account);
         if(employee!=null) {
             if (employee.getPassWord().equals(pwd)) {
                 return employee;

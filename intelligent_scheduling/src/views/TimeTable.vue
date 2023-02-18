@@ -1,4 +1,5 @@
 <template>
+    <pop_ups ref="dialog" @confirmDia="confirmDia"></pop_ups>
     <div class="selectWeek">
       <button type="button" class="btn btn-primary" @click="lastWeek">上一周</button>
       <button type="button" class="btn btn-primary" @click="thisWeek">本周</button>
@@ -8,7 +9,7 @@
 
       <ul class="theTime">
         <li class="weekTime">
-          <div class="weekDay">星期数/时间</div></li>
+          <div class="weekDay First">星期数/时间</div></li>
         <li v-for="count in 7">
           <div class="weekDay">{{weekJS[count-1]}}<br>{{week[count-1]}}</div>
         </li>
@@ -16,7 +17,7 @@
 
       <ul class="theTime">
         <li class="weekTime">
-          <div>8:00~11:00<br>(周末)9:00~12:00</div></li>
+          <div class="weekTimeFirst">8:00~11:00<br>(周末)9:00~12:00</div></li>
         <li v-for="count in 5">
           <div class="employeeBox">
             <ul class="employee">
@@ -57,7 +58,7 @@
 
       <ul class="theTime">
             <li class="weekTime">
-              <div>11:00~13:00<br>(周末)12:00~14:00</div></li>
+              <div class="weekTimeFirst">11:00~13:00<br>(周末)12:00~14:00</div></li>
             <li v-for="count in 5">
               <div>
                 <ul class="employee">
@@ -98,7 +99,7 @@
 
   <ul class="theTime">
     <li class="weekTime">
-      <div>13:00~15:00<br>(周末)14:00~16:00</div></li>
+      <div class="weekTimeFirst">13:00~15:00<br>(周末)14:00~16:00</div></li>
     <li v-for="count in 5">
       <div>
         <ul class="employee">
@@ -139,7 +140,7 @@
 
   <ul class="theTime">
     <li class="weekTime">
-      <div>15:00~18:00<br>(周末)16:00~19:00</div></li>
+      <div class="weekTimeFirst">15:00~18:00<br>(周末)16:00~19:00</div></li>
     <li v-for="count in 5">
       <div>
         <ul class="employee">
@@ -180,7 +181,7 @@
 
   <ul class="theTime">
     <li class="weekTime">
-      <div>18:00~21:00<br>(周末)18:00~22:00</div></li>
+      <div class="weekTimeFirst">18:00~21:00<br>(周末)18:00~22:00</div></li>
     <li v-for="count in 5">
       <div>
         <ul class="employee">
@@ -221,7 +222,7 @@
 
   <ul class="theTime">
     <li class="weekTime">
-      <div>21:00~23:00<br>(周末)22:00~24:00</div></li>
+      <div class="weekTimeFirst">21:00~23:00<br>(周末)22:00~24:00</div></li>
     <li v-for="count in 5">
       <div>
         <ul class="employee">
@@ -270,6 +271,7 @@
 import {getCurrentInstance, reactive, ref} from "vue";
 import store from "../store";
 import dayjs from "dayjs";
+import Pop_ups from "../components/pop_ups.vue";
 
 let now = new Date();
 let day = now.getDay();
@@ -381,8 +383,15 @@ const nextWeek=()=>{
   //   return date
   // })
 }
+let dialog = ref<InstanceType<typeof Pop_ups>| null>(null)
+
+const confirmDia = (val:string): void => {
+  console.log(val)
+  dialog.value?.closeDia()
+}
+
 const data=reactive({
-  schedulingCol:''
+  schedulingCol:'',
 })
 const props = defineProps({
       storeId:{
@@ -452,6 +461,7 @@ const AutoScheduling=()=>{
 }
 const UpdateScheduling=(employeeScheduling)=>{
   data.schedulingCol=employeeScheduling.schedulingCol
+  dialog.value?.openDia(employeeScheduling.employeeName)
   proxy.$axios.post('EmployeeController/UpdateScheduling',proxy.$qs.stringify({
     schedulingCol:data.schedulingCol,
     weekJS:weekJS
@@ -467,11 +477,6 @@ const detailetShow=(employeeScheduling)=>{
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-button.update{
-  width: 10px;
-  height: 10px;
-  background-color: cadetblue;
-}
 .MainButton{
   width: 400px;
   height: 50px;
@@ -498,6 +503,12 @@ button.update{
 }
 div.weekDay{
   height: 64px;
+}
+div.weekDay.First{
+  width: 140px;
+}
+div.weekTimeFirst{
+  width: 140px;
 }
 ul.employee{
   width: 100%;
