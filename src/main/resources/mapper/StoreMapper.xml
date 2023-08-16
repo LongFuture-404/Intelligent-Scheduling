@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.intelligentscheduling.dao.StoreDao">
+
+    <select id="storeSelect" resultType="com.example.intelligentscheduling.entity.Store">
+        select * from stores where storesId=#{storesId}</select>
+    <select id="storesRoleSelect" parameterType="Map" resultType="com.example.intelligentscheduling.entity.Scheduling_role">
+        select * from scheduling_rules left join stores on scheduling_rules.storesId = stores.storesId
+                 left join storestraffic on stores.storesId = storestraffic.storesId
+                 where scheduling_rules.storesId=#{storesId} and storestraffic.date=#{date} and startTime=#{startTime}
+    </select>
+    <update id="updateStore" parameterType="String" >
+        update stores set storesName=#{storesName},storesAddress=#{storesAddress},storesSize=#{storesSize} where storesId=#{storesId}
+    </update>
+</mapper>

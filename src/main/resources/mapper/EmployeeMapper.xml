@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.intelligentscheduling.dao.EmployeeDao">
+    <select id="allEmployeeSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.Employee">
+        select * from employee where storesId=#{storesId}</select>
+    <select id="employeeInsert" parameterType="com.example.intelligentscheduling.entity.Employee">
+        insert into employee (employeeId, employeeName, employeePosts, storesId, employeeEmail) value (#{employeeId},#{employeeName},#{employeePosts},#{storesId},#{employeeEmail})</select>
+    <update id="employeeUpdate" parameterType="com.example.intelligentscheduling.entity.Employee">
+        update employee set storesId=#{storesId},employeeName=#{employeeName},employeePosts=#{employeePosts},employeeEmail=#{employeeEmail} where employeeId=#{employeeId}
+    </update>
+    <delete id="employeeDelete" parameterType="String">
+        delete from employee where storesId=#{storesId} and employeeId=#{employeeId}
+    </delete>
+    <update id="scheduling_roleUpdate" parameterType="com.example.intelligentscheduling.entity.Scheduling_role">
+        update scheduling_rules set maxDayTime=#{maxDayTime},maxWeekTime=#{maxWeekTime},
+                                    employeeNeed=#{employeeNeed},beforeTime=#{beforeTime},
+                                    beforeEmployeeArea=#{beforeEmployeeArea},afterTime=#{afterTime},
+                                    afterEmployeeArea=#{afterEmployeeArea},afterEmployeeMore=#{afterEmployeeMore} where storesId=#{storesId}
+    </update>
+    <select id="Select" parameterType="String" resultType="com.example.intelligentscheduling.entity.Employee">
+        select * from employee where userId=#{UserId}</select>
+    <select id="employeeSchedulingSelect" parameterType="Map" resultType="String">
+        select employee.employeeId from employeepreference left join employee on employeepreference.employeeId=employee.employeeId
+                     where storesId=#{storesId}
+                     and employeepreference.dayPrefer like CONCAT(CONCAT('%',#{dayPrefer}),'%')
+                     and (employeepreference.startTime1=#{time} or employeepreference.startTime2=#{time})
+    </select>
+    <select id="employeeSchedulingSelect2" parameterType="Map" resultType="String">
+        select employee.employeeId from employeepreference left join employee on employeepreference.employeeId=employee.employeeId
+                     where storesId=#{storesId}
+                     and (employeepreference.dayPrefer not like CONCAT(CONCAT('%',#{dayPrefer}),'%')
+                     or (employeepreference.startTime1!=#{time} and employeepreference.startTime2!=#{time}))
+    </select>
+    <select id="employeeIsRest" parameterType="Map" resultType="Integer">
+        select isRest from scheduling where employeeId=#{employeeId} and date=#{date} and startTime=#{startTime}
+    </select>
+    <select id="employeeWeekSelect" parameterType="String" resultType="Integer">
+        select min(weekRemainder) from scheduling where employeeId=#{employeeId} and date &gt;= #{startWeek} and date &lt;= #{endWeek}
+    </select>
+    <select id="employeeSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.Employee">
+        select * from employee left join scheduling on employee.employeeId=scheduling.employeeId where employee.employeeId=#{employeeId} and date=#{date}
+                     order by dayRemainder limit 1
+    </select>
+    <insert id="addScheduling" parameterType="Map">
+        insert into scheduling(employeeId,storesId,date,startTime,endTime,dayRemainder,weekRemainder) value (#{employeeId},#{storesId},#{date},#{startTime},#{endTime},#{dayRemainder},#{weekRemainder})
+    </insert>
+    <insert id="addEmployeeCount" parameterType="Map">
+        update storestraffic set employeeCount=employeeCount+1 where storesId=#{storesId} and date=#{date} and startTime &gt;= #{startTime} and startTime &lt;#{endTime}
+    </insert>
+    <select id="SchedulingSelect" parameterType="String" resultType="com.example.intelligentscheduling.entity.EmployeeScheduling">
+        select * from scheduling left join employee on scheduling.employeeId = employee.employeeId where date=#{date} and scheduling.storesId=#{storesId}
+    </select>
+    <select id="updateEmployeeSelect" parameterType="Map" resultType="com.example.intelligentscheduling.entity.Employee">
+        select * from scheduling left join employee on scheduling.employeeId=employee.employeeId where startTime=#{startTime} and endTime=#{endTime} and date=#{date} and employee.storesId=#{storeId}
+    </select>
+    <select id="insertEmployeeSelect" parameterType="Map" resultType="com.example.intelligentscheduling.entity.Employee">
+        select * from scheduling where employeeId='100'
+    </select>
+    <select id="employeeSchedulingUpdateSelect" parameterType="Map" resultType="com.example.intelligentscheduling.entity.Employee">
+
+    </select>
+</mapper>
