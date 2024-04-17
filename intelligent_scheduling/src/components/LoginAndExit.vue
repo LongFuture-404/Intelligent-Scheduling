@@ -27,7 +27,6 @@
 
 <script setup lang="ts">
 import createPersistedState from "vuex-persistedstate";
-
 declare function require(img: string): string;
 import logo from '../assets/logo.png'
 import {useRoute, useRouter} from 'vue-router';
@@ -87,10 +86,7 @@ const exit=()=>{
 }
 const selectStore=(item)=>{
     store.commit('setStoreId',item.value)
-<<<<<<< HEAD
-=======
     location.reload()
->>>>>>> 4bf1c39 (页面小BUG修复)
 }
 </script>
 

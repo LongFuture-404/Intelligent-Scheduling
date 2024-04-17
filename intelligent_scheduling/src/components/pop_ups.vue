@@ -146,7 +146,7 @@ defineExpose({
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 div.employeeSelect{
   position: relative;
   display: flex;
@@ -165,7 +165,7 @@ div.button{
   position: relative;
   width: 200px;
   height: 40px;
-  margin-left:40%;
+  margin-left:35%;
   margin-right:auto;
   display: flex;
   flex-direction: row;
@@ -175,7 +175,7 @@ div.button{
   background-color: orangered;
   position: relative;
   left: 25%;
-  top: 40px;
+  top: 20px;
 }
 </style>
 <style lang="scss">

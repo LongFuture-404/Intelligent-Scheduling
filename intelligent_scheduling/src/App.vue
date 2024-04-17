@@ -15,6 +15,9 @@ import store from "./store";
 </script>
 
 <style>
+.el-dialog__footer{
+  padding-top:0!important;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

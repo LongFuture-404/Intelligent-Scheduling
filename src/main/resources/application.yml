@@ -4,11 +4,8 @@ spring:
     password: Zcl27272369250?
     url: jdbc:mysql://localhost:3306/intelligent-scheduling?serverTimeZone=UTC&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
 #    password: 123456
-<<<<<<< HEAD
 #    url: jdbc:mysql://10.26.10.181:3306/intelligent-scheduling?serverTimeZone=UTC&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-=======
 #    url: jdbc:mysql://192.168.1.12:3306/intelligent-scheduling?serverTimeZone=UTC&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
->>>>>>> 4bf1c39 (页面小BUG修复)
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   thymeleaf:
